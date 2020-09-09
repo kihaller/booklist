@@ -1,0 +1,21 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans SC", sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}

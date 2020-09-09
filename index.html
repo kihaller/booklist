@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://use.fontawesome.com/a4d35aadab.js"></script>
+    <title>Book List</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="site-heading">
+        <i class="fa fa-book book-icon" aria-hidden="true"></i>
+        <h1>My<span style="color: dodgerblue">Book</span>List</h1>
+      </div>
+      <div class="alert hidden" id="alert">
+        <span>The book was successfully added.</span>
+      </div>
+      <form action="index.html" method="post">
+        <div class="book-info">
+          <label for="title">Title</label><br />
+          <input type="text" id="title" name="book-title" /><br />
+        </div>
+        <div class="book-info">
+          <label for="author">Author</label><br />
+          <input type="text" id="author" name="book-author" /><br />
+        </div>
+        <div class="book-info">
+          <label for="isbn">ISBN</label><br />
+          <input type="text" id="isbn" name="book-isbn" /><br />
+        </div>
+        <button class="submit-button" type="submit">Submit</button>
+      </form>
+
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Five Feet Apart</td>
+          <td>Rachael Lippincott</td>
+          <td>9781534437333</td>
+          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
+        </tr>
+        <tr>
+          <td>Harley Merlin and the Secret Coven</td>
+          <td>Bella Forrest</td>
+          <td>9781947607583</td>
+          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
+        </tr>
+        <tr>
+          <td>Harry Potter and the Goblet of Fire</td>
+          <td>J.K. Rowling</td>
+          <td>9781947607583</td>
+          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
+        </tr>
+        <tr>
+          <td>Harry Potter and the Order of the Phoenix</td>
+          <td>J.K. Rowling</td>
+          <td>9780439358071</td>
+          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
+        </tr>
+      </table>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
