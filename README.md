@@ -7,10 +7,10 @@ This is an application to keep track of books. Books can be added and deleted, r
 ## Instructions
 
 * Start adding a booktitle, an author and an ISBN.
-* When you start typing a title or an author, an autocomplete feature is activated and it suggests you different book titles or author names
-* Once you select the book/author you want, the rest of the information is pre-filled (title, author, and ISBN)
-* A book cover will appear automatically once you hit the 'Submit' button.
-* You can delete a book by clicking on the trash icon
+* When you start typing a title or an author, an autocomplete feature is activated and it suggests different book titles or author names to you.
+* Once you select the book/author you want, the rest of the information is pre-filled (title, author, and ISBN).
+* A book cover will appear automatically once you hit the 'Submit' button. It is fetched from an API using the ISBN number.
+* You can delete a book by clicking on the trash icon.
 
 
 
