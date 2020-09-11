@@ -8,6 +8,7 @@ const BOOKISBN = document.getElementById("isbn");
 const ALERT = document.getElementById("alert");
 const LOCAL_STORAGE_KEY = "books";
 const TABLE = document.getElementById("table");
+const urlAPI = "http://openlibrary.org/search.json";
 let books = [];
 
 /* -------------
@@ -33,10 +34,10 @@ function render() {
   header.innerHTML = `
         <tr>
         <th>Cover</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>ISBN</th>
-          <th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th></th>
         </tr>
         `;
   TABLE.appendChild(header);
@@ -160,3 +161,34 @@ window.onload = function () {
   console.log(books);
   render();
 };
+
+/* ------------
+Fetch book data from API
+------------ */
+async function getBookInformationFromTitle(title) {
+  try {
+    const response = await fetch(
+      urlAPI + "?title=" + encodeURIComponent(title)
+    );
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
+/* Autocomplete search user*/
+var suggestions = ["Victoria Chambers", "Dale Byrd", "Dawn Wood", "Dan Oliver"];
+
+BOOKTITLE.addEventListener("keypress", () => {
+  console.log("Key Pressed");
+  const datalist = document.createElement("datalist");
+  datalist.id = "datalist";
+  datalist.innerHTML = `
+    <option value="Victoria Chambers"></option>
+    <option value="Dale Byrd"></option>
+    <option value="Dawn Wood"></option>
+    <option value="Dan Oliver"></option>
+  `;
+  BOOKTITLE.after(datalist);
+  BOOKTITLE.setAttribute("list", "datalist");
+});
