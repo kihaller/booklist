@@ -120,13 +120,13 @@ SUBMITBUTTON.addEventListener("click", (e) => {
     }
   } else if (!TITLE_INPUT.value || !AUTHOR_INPUT.value || !ISBN_INPUT.value) {
     ALERT.style.display = "flex";
-    ALERT.style.backgroundColor = "rgb(245, 84, 159);";
+    ALERT.style.backgroundColor = "#f5549f";
     ALERT.innerHTML = "Please provide all the requested information";
     $(ALERT).fadeIn(200);
     $(ALERT).delay(4000).fadeOut(2000);
   } else {
     ALERT.style.display = "flex";
-    ALERT.style.backgroundColor = "rgb(245, 84, 159);";
+    ALERT.style.backgroundColor = "#f5549f";
     ALERT.innerHTML = "Please ensure the ISBN you entered is correct.";
     $(ALERT).fadeIn(200);
     $(ALERT).delay(4000).fadeOut(2000);
