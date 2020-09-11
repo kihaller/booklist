@@ -18,13 +18,13 @@ This is an application to keep track of books. Books can be added and deleted, r
 
 I used: 
 
-- DOM manipulation with vanilla JavaScript to alter the HTML. I styled the site using Sass.
+- **DOM manipulation** with **vanilla JavaScript** to alter the HTML. I styled the site using **Sass**.
 
-- local storage in order to save the books in the list. They are cleared from local storage once the user deletes them.
+- **local storage** in order to save the books in the list. They are cleared from local storage once the user deletes them.
 
--  a regular expression to ensure that the user enters a valid ISBN number.
+-  a **regular expression** to ensure that the user enters a valid ISBN number.
 
-- Fetch requests in order to autocomplete the information about the book title, the author, and the ISBN number of the respective books.
+- **Fetch requests** in order to autocomplete the information about the book title, the author, and the ISBN number of the respective books.
 
  
 
