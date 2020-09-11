@@ -78,9 +78,13 @@ function isDuplicate(book) {
   const bookISBN = book.isbn;
   if (books.filter((item) => item.isbn === book.isbn).length > 0) {
     ALERT.style.display = "flex";
+    ALERT.style.backgroundColor = "#f5549f";
     ALERT.innerHTML = "You already have this book in your list.";
     $(ALERT).fadeIn(200);
     $(ALERT).delay(1500).fadeOut(1000);
+    TITLE_INPUT.value = "";
+    AUTHOR_INPUT.value = "";
+    ISBN_INPUT.value = "";
     return true;
   }
   return false;
@@ -117,6 +121,9 @@ SUBMITBUTTON.addEventListener("click", (e) => {
       $(ALERT).fadeIn(200);
       $(ALERT).delay(1500).fadeOut(1000);
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(books));
+      TITLE_INPUT.value = "";
+      AUTHOR_INPUT.value = "";
+      ISBN_INPUT.value = "";
     }
   } else if (!TITLE_INPUT.value || !AUTHOR_INPUT.value || !ISBN_INPUT.value) {
     ALERT.style.display = "flex";
@@ -187,7 +194,7 @@ async function getBookInformation(key, value) {
 /* Autocomplete search title*/
 
 TITLE_INPUT.addEventListener("keyup", async () => {
-  if (TITLE_INPUT.value.length === 4) {
+  if (TITLE_INPUT.value.length === 5) {
     // API request
     var response = await getBookInformation("title", TITLE_INPUT.value);
 

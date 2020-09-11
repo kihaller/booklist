@@ -10,4 +10,18 @@
   .container {
     width: 80%;
   }
+
+  form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .alert {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
 }
