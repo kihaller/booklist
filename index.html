@@ -20,14 +20,26 @@
       <div class="alert hidden" id="alert">
         <span>The book was successfully added.</span>
       </div>
-      <form action="index.html" method="post">
+      <form action="index.html" method="post" autocomplete="off">
         <div class="book-info">
           <label for="title">Title</label><br />
-          <input type="text" id="title" name="book-title" /><br />
+          <input
+            type="text"
+            id="title"
+            name="book-title"
+            list="title-datalist"
+          /><br />
+          <datalist id="title-datalist"> </datalist>
         </div>
         <div class="book-info">
           <label for="author">Author</label><br />
-          <input type="text" id="author" name="book-author" /><br />
+          <input
+            type="text"
+            id="author"
+            name="book-author"
+            list="author-datalist"
+          /><br />
+          <datalist id="author-datalist"> </datalist>
         </div>
         <div class="book-info">
           <label for="isbn">ISBN</label><br />
@@ -38,38 +50,7 @@
         </button>
       </form>
 
-      <table id="table">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>ISBN</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>Five Feet Apart</td>
-          <td>Rachael Lippincott</td>
-          <td>9781534437333</td>
-          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
-        </tr>
-        <tr>
-          <td>Harley Merlin and the Secret Coven</td>
-          <td>Bella Forrest</td>
-          <td>9781947607583</td>
-          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
-        </tr>
-        <tr>
-          <td>Harry Potter and the Goblet of Fire</td>
-          <td>J.K. Rowling</td>
-          <td>9781947607583</td>
-          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
-        </tr>
-        <tr>
-          <td>Harry Potter and the Order of the Phoenix</td>
-          <td>J.K. Rowling</td>
-          <td>9780439358071</td>
-          <td><i class="fa fa-trash trash-icon" aria-hidden="true"></i></td>
-        </tr>
-      </table>
+      <table id="table"></table>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="main.js"></script>

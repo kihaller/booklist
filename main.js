@@ -2,14 +2,17 @@
 Global Variables
 ------------- */
 const SUBMITBUTTON = document.getElementById("submit-button");
-const BOOKTITLE = document.getElementById("title");
-const BOOKAUTHOR = document.getElementById("author");
-const BOOKISBN = document.getElementById("isbn");
+const TITLE_INPUT = document.getElementById("title");
+const AUTHOR_INPUT = document.getElementById("author");
+const ISBN_INPUT = document.getElementById("isbn");
 const ALERT = document.getElementById("alert");
 const LOCAL_STORAGE_KEY = "books";
 const TABLE = document.getElementById("table");
-const urlAPI = "http://openlibrary.org/search.json";
+const URL_API = "http://openlibrary.org/search.json";
+const TITLE_DATALIST = document.getElementById("title-datalist");
+const AUTHOR_DATALIST = document.getElementById("author-datalist");
 let books = [];
+let titleOptions = new Map();
 
 /* -------------
 Class Definitions
@@ -66,7 +69,7 @@ function render() {
 //validate function
 function validate(isbn) {
   const isbnEntered = /\d{10,13}/;
-  const validISBN = isbnEntered.test(BOOKISBN.value);
+  const validISBN = isbnEntered.test(ISBN_INPUT.value);
   return validISBN;
 }
 
@@ -92,13 +95,17 @@ SUBMITBUTTON.addEventListener("click", (e) => {
   e.preventDefault();
   //check whether all three input fields have been filled in
   if (
-    BOOKTITLE.value &&
-    BOOKAUTHOR.value &&
-    BOOKISBN.value &&
-    validate(BOOKISBN.value)
+    TITLE_INPUT.value &&
+    AUTHOR_INPUT.value &&
+    ISBN_INPUT.value &&
+    validate(ISBN_INPUT.value)
   ) {
     //Create a new instance of the book class
-    const book1 = new Book(BOOKTITLE.value, BOOKAUTHOR.value, BOOKISBN.value);
+    const book1 = new Book(
+      TITLE_INPUT.value,
+      AUTHOR_INPUT.value,
+      ISBN_INPUT.value
+    );
 
     if (!isDuplicate(book1)) {
       books.push(book1);
@@ -111,7 +118,7 @@ SUBMITBUTTON.addEventListener("click", (e) => {
       $(ALERT).delay(1500).fadeOut(1000);
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(books));
     }
-  } else if (!BOOKTITLE.value || !BOOKAUTHOR.value || !BOOKISBN.value) {
+  } else if (!TITLE_INPUT.value || !AUTHOR_INPUT.value || !ISBN_INPUT.value) {
     ALERT.style.display = "flex";
     ALERT.style.backgroundColor = "rgb(245, 84, 159);";
     ALERT.innerHTML = "Please provide all the requested information";
@@ -165,10 +172,11 @@ window.onload = function () {
 /* ------------
 Fetch book data from API
 ------------ */
-async function getBookInformationFromTitle(title) {
+async function getBookInformation(key, value) {
   try {
+    console.log("Querying:", `${URL_API}?${key}=${encodeURIComponent(value)}`);
     const response = await fetch(
-      urlAPI + "?title=" + encodeURIComponent(title)
+      `${URL_API}?${key}=${encodeURIComponent(value)}`
     );
     return response.json();
   } catch (error) {
@@ -176,19 +184,84 @@ async function getBookInformationFromTitle(title) {
   }
 }
 
-/* Autocomplete search user*/
-var suggestions = ["Victoria Chambers", "Dale Byrd", "Dawn Wood", "Dan Oliver"];
+/* Autocomplete search title*/
 
-BOOKTITLE.addEventListener("keypress", () => {
-  console.log("Key Pressed");
-  const datalist = document.createElement("datalist");
-  datalist.id = "datalist";
-  datalist.innerHTML = `
-    <option value="Victoria Chambers"></option>
-    <option value="Dale Byrd"></option>
-    <option value="Dawn Wood"></option>
-    <option value="Dan Oliver"></option>
-  `;
-  BOOKTITLE.after(datalist);
-  BOOKTITLE.setAttribute("list", "datalist");
+TITLE_INPUT.addEventListener("keyup", async () => {
+  if (TITLE_INPUT.value.length === 4) {
+    // API request
+    var response = await getBookInformation("title", TITLE_INPUT.value);
+
+    var suggestions = response.docs.map(
+      (doc) =>
+        new Book(
+          doc.title_suggest,
+          doc.author_name ? doc.author_name[0] : "",
+          doc.isbn ? doc.isbn[0] : ""
+        )
+    ); // convert response
+    console.log("Title suggestions:", suggestions);
+
+    TITLE_DATALIST.innerHTML = "";
+    titleOptions = new Map();
+    for (book of suggestions) {
+      let option = document.createElement("option");
+
+      let optionValue = book.title + " - " + book.author;
+      option.setAttribute("value", optionValue);
+      titleOptions.set(optionValue, book);
+
+      TITLE_DATALIST.appendChild(option);
+    }
+  }
+});
+
+TITLE_INPUT.addEventListener("change", (event) => {
+  let book = titleOptions.get(event.target.value);
+
+  if (book) {
+    TITLE_INPUT.value = book.title;
+    AUTHOR_INPUT.value = book.author;
+    ISBN_INPUT.value = book.isbn;
+  }
+});
+
+/* Autocomplete search author*/
+
+AUTHOR_INPUT.addEventListener("keyup", async () => {
+  if (AUTHOR_INPUT.value.length === 4) {
+    // API request
+    var response = await getBookInformation("author", AUTHOR_INPUT.value);
+
+    var suggestions = response.docs.map(
+      (doc) =>
+        new Book(
+          doc.title_suggest,
+          doc.author_name ? doc.author_name[0] : "",
+          doc.isbn ? doc.isbn[0] : ""
+        )
+    ); // convert response
+    console.log("Author suggestions:", suggestions);
+
+    AUTHOR_DATALIST.innerHTML = "";
+    authorOptions = new Map();
+    for (book of suggestions) {
+      let option = document.createElement("option");
+
+      let optionValue = book.author + " - " + book.title;
+      option.setAttribute("value", optionValue);
+      authorOptions.set(optionValue, book);
+
+      AUTHOR_DATALIST.appendChild(option);
+    }
+  }
+});
+
+AUTHOR_INPUT.addEventListener("change", (event) => {
+  let book = authorOptions.get(event.target.value);
+
+  if (book) {
+    TITLE_INPUT.value = book.title;
+    AUTHOR_INPUT.value = book.author;
+    ISBN_INPUT.value = book.isbn;
+  }
 });
