@@ -2,7 +2,7 @@
 
 This is an application to keep track of books. Books can be added and deleted, respectively. It is not possible to enter the same book twice. A valid ISBN needs to be entered, otherwise an error message will appear.
 
-![Screen Shot 2020-09-03 at 3.09.33 PM](/Users/kimhaller/Desktop/Projects_Techdegree/booklist/images/screenshot.jpg)
+<img src="./images/screenshot.jpg" alt="Screen Shot 2020-09-03 at 3.09.33 PM" style="zoom:67%;" />
 
 ## Instructions
 
